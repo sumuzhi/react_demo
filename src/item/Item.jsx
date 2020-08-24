@@ -4,8 +4,10 @@ import './item.css'
 export default class xxx extends Component {
   
   delete = () => {
-    let {userId, deleteState} = this.props
-    deleteState(userId)
+    let {userId,userName, deleteState} = this.props
+    if(window.confirm(`确定删除${userName}的评论吗?`)){
+      deleteState(userId)
+    }
   }
   
   render() {
