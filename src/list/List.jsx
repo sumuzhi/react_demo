@@ -1,27 +1,26 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 import Item from '../item/Item'
 
 export default class List extends Component {
+  
   render() {
-    let {deleteState} = this.props
-    let {comments} = this.props
-    return (
-      <div className="col-md-8">
-        <h3 className="reply">评论回复：</h3>
-        <h2 style={{display: (comments.length > 0 ? 'none' : 'block')}}>暂无评论，点击左侧添加评论！！！</h2>
-        <ul className="list-group">
+    let {isFirst, isLoading, userData, errMsg} = this.props.appState
+    if (isFirst) {
+      return <h2>欢迎搜索</h2>
+    } else if (isLoading) {
+      return <h2>Loading...</h2>
+    } else if (errMsg) {
+      return <h2>{errMsg}</h2>
+    } else {
+      return (
+        <div className="row">
           {
-            comments.map((item) => {
-              // let obj = {
-              //   userId:item
-              // }
-              // console.log({...item})
-              return <Item key={item.userId} {...item} deleteState={deleteState}/>
+            userData.map((item) => {
+              return <Item key={item.login} data={item}/>
             })
           }
-        </ul>
-      </div>
-    )
+        </div>
+      )
+    }
   }
-  
 }
